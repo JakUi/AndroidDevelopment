@@ -25,15 +25,22 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         val characters = "Hello world!".filter {
             it.isLetter()
+        }.map {
+            it.uppercase()
         }
         val firstRow = characters.take(5)
         val secondRow = characters.takeLast(5)
         setContent {
+            val green = Color(0xFF79A86A)
+            val white = Color(0xFFFFFFFF)
+            val grey = Color(0xFF797D80)
+            val yellow = Color(0xFFC6B567)
+
             Column(
                 modifier = Modifier
                     .padding(top = 8.dp)
                     .fillMaxWidth()
-                    .background(Color.Magenta)
+                    .background(white)
                     .padding(8.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -43,21 +50,20 @@ class MainActivity : ComponentActivity() {
                         .fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
-                    for (char in firstRow) {
+                    for ((index, char) in firstRow.withIndex()) {
                         Box(
                             modifier = Modifier
-                                .background(color = Color.Green)
+                                .background(color = if (index == 2 || index == 4) yellow else grey)
                                 .fillMaxWidth()
                                 .weight(1f)
                                 .aspectRatio(1f),
                             contentAlignment = Alignment.Center
                         ) {
                             Text(
-                                text = char.toString(),
+                                text = char,
+                                fontSize = 32.sp,
                                 fontWeight = FontWeight.ExtraBold,
-                                color = Color.Blue,
-                                fontSize = 15.sp,
-                                letterSpacing = 1.sp,
+                                color = white,
                                 textAlign = TextAlign.Center
                             )
                         }
@@ -71,18 +77,17 @@ class MainActivity : ComponentActivity() {
                     for (char in secondRow) {
                         Box(
                             modifier = Modifier
-                                .background(color = Color.Green)
+                                .background(color = green)
                                 .fillMaxWidth()
                                 .weight(1f)
                                 .aspectRatio(1f),
                             contentAlignment = Alignment.Center
                         ) {
                             Text(
-                                text = char.toString(),
+                                text = char,
                                 fontWeight = FontWeight.ExtraBold,
-                                color = Color.Blue,
-                                fontSize = 15.sp,
-                                letterSpacing = 1.sp,
+                                color = white,
+                                fontSize = 32.sp,
                                 textAlign = TextAlign.Center
                             )
                         }
