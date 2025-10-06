@@ -11,16 +11,17 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.klyschenko.helloworld.ui.theme.HelloWorldTheme
 import kotlin.random.Random
 
 class MainActivity : ComponentActivity() {
@@ -28,13 +29,14 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            Scaffold { paddingValues ->
-                Greeting(
-                    modifier = Modifier.padding(paddingValues),
-                    text = "Hello World! Hello World!"
-                )
+            HelloWorldTheme {
+                Scaffold { paddingValues ->
+                    Greeting(
+                        modifier = Modifier.padding(paddingValues),
+                        text = "Hello World! Hello World!"
+                    )
+                }
             }
-
         }
     }
 
@@ -48,15 +50,10 @@ class MainActivity : ComponentActivity() {
             word.filter { it.isLetter() }.uppercase()
         }
 
-        val green = Color(0xFF79A86A)
-        val white = Color(0xFFFFFFFF)
-        val grey = Color(0xFF797D80)
-        val yellow = Color(0xFFC6B567)
-
         Column(
             modifier = modifier
                 .fillMaxWidth()
-                .background(white)
+                .background(MaterialTheme.colorScheme.background)
                 .padding(8.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
             horizontalAlignment = Alignment.CenterHorizontally
@@ -71,12 +68,12 @@ class MainActivity : ComponentActivity() {
                         val color = if (rawIndex % 2 == 0) {
                             val isYellow = Random.nextBoolean()
                             if (isYellow) {
-                                yellow
+                                MaterialTheme.colorScheme.tertiary
                             } else {
-                                grey
+                                MaterialTheme.colorScheme.secondary
                             }
                         } else {
-                            green
+                            MaterialTheme.colorScheme.primary
                         }
                         Box(
                             modifier = Modifier
@@ -90,7 +87,7 @@ class MainActivity : ComponentActivity() {
                                 text = char.toString(),
                                 fontSize = 32.sp,
                                 fontWeight = FontWeight.ExtraBold,
-                                color = white,
+                                color = MaterialTheme.colorScheme.onPrimary,
                                 textAlign = TextAlign.Center
                             )
                         }
